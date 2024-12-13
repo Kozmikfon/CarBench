@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+      integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <title>Araba Web Site</title>
+    <link rel="stylesheet" href="styles/style.css" />
+  </head>
+  <body>
+    <!--! header section start  -->
+    <header class="header">
+      <a href="#" class="logo">
+        <img src="images/logo.png" alt="logo" />
+      </a>
+      <nav class="navbar">
+        <a href="index.html" class="active">Anasayfa</a>
+        <a href="hakkında.html">Hakkında</a>
+        <a href="marka.html">Markalar</a>
+        <a href="iletişim.html">İletişim</a>
+        <a href="blogs.html">Blogs</a>
+      </nav>
+
+      <div class="buttons">
+        <button id="search-btn">
+          <i class="fas fa-search"></i>
+        </button>
+
+        <button id="menu-btn">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+
+      <div class="search-form">
+        <input
+          type="text"
+          class="search-input"
+          id="search-box"
+          placeholder="search here"
+        />
+        <i class="fas fa-search"></i>
+      </div>
+
+      <div class="cart-items-container">
+        <div class="cart-item">
+          <i class="fas fa-times"></i>
+          <img src="images/menu-1.png" alt="menu" />
+          <div class="content">
+            <h3>cart item 01</h3>
+            <div class="price">$15.99/-</div>
+          </div>
+        </div>
+        <div class="cart-item">
+          <i class="fas fa-times"></i>
+          <img src="images/menu-2.png" alt="menu" />
+          <div class="content">
+            <h3>cart item 02</h3>
+            <div class="price">$15.99/-</div>
+          </div>
+        </div>
+        <div class="cart-item">
+          <i class="fas fa-times"></i>
+          <img src="images/menu-3.png" alt="menu" />
+          <div class="content">
+            <h3>cart item 03</h3>
+            <div class="price">$15.99/-</div>
+          </div>
+        </div>
+        <div class="cart-item">
+          <i class="fas fa-times"></i>
+          <img src="images/menu-4.png" alt="menu" />
+          <div class="content">
+            <h3>cart item 04</h3>
+            <div class="price">$15.99/-</div>
+          </div>
+        </div>
+        <a href="#" class="btn">checkout now</a>
+      </div>
+    </header>
+    <!--! header section end  -->
+
+    <!--! home section start  -->
+    <section class="home" id="home">
+      <div class="content">
+        <h3>Hayalindeki araca bir adım daha yakınsın</h3>
+        <p>Sana en uygun araç için doğru adres! Hadi başlayalım..</p>
+        <a href="list.html" class="btn">Araçları Listele</a>
+      </div>
+    </section>
+    <!--! home section end  -->
+
+    <!--! menu section start  -->
+    <section class="menu" id="menu">
+      <h1 class="heading">Araba <span>Modelleri</span></h1>
+      <div class="box-container">
+        <!-- SUV -->
+        <div class="box">
+          <div class="box-head">
+            <img src="images/suv-1.png" alt="SUV" />
+            <span class="menu-category">SUV</span>
+            <h3>2024 Model SUV</h3>
+            <div class="price"><span></span></div>
+          </div>
+          <div class="box-bottom">
+            <a href="#" class="btn">SUV Araçlar</a>
+          </div>
+        </div>
+
+        <!-- Sedan -->
+        <div class="box">
+          <div class="box-head">
+            <img src="images/sedan-1.png" alt="Sedan" />
+            <span class="menu-category">Sedan</span>
+            <h3>2023 Model Sedan</h3>
+            <div class="price"><span></span></div>
+          </div>
+          <div class="box-bottom">
+            <a href="#" class="btn">Sedan Araçlar</a>
+          </div>
+        </div>
+
+        <!-- Hatchback -->
+        <div class="box">
+          <div class="box-head">
+            <img src="images/hatchback-1.png" alt="Hatchback" />
+            <span class="menu-category">Hatchback</span>
+            <h3>2023 Model Hatchback</h3>
+            <div class="price"><span></span></div>
+          </div>
+          <div class="box-bottom">
+            <a href="hatchback.html" class="btn">Hatchback Araçlar</a>
+          </div>
+        </div>
+
+        <!-- Truck -->
+        <div class="box">
+          <div class="box-head">
+            <img src="images/truck-1.png" alt="Truck" />
+            <span class="menu-category">Truck</span>
+            <h3>2024 Model Truck</h3>
+            <div class="price"><span></span></div>
+          </div>
+          <div class="box-bottom">
+            <a href="#" class="btn">Truck Araçlar</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <body>
+      <h1>Araç Listesi</h1>
+
+      <!-- Filtreleme Formu -->
+      <form id="filter-form">
+        <label for="marka">Marka:</label>
+        <input type="text" id="marka" name="marka" placeholder="Örn: Audi" />
+        <label for="fiyatMin">Min Fiyat:</label>
+        <input
+          type="number"
+          id="fiyatMin"
+          name="fiyatMin"
+          placeholder="Örn: 500000"
+        />
+        <label for="fiyatMax">Max Fiyat:</label>
+        <input
+          type="number"
+          id="fiyatMax"
+          name="fiyatMax"
+          placeholder="Örn: 1000000"
+        />
+        <button type="submit">Filtrele</button>
+      </form>
+
+      <!-- Araç Listesi -->
+      <div id="car-list">Yükleniyor...</div>
+
+      <script src="js/script.js"></script>
+    </body>
+
+    <!--! menu section end  -->
+
+    <!--! about section start  -->
+    <section class="about" id="about">
+      <h1 class="heading">Hakkında<span></span></h1>
+      <div class="row">
+        <div class="image">
+          <img src="images/about.jpg" alt="about" />
+        </div>
+        <div class="content">
+          <h3>Hangi araba seni temsil eder?</h3>
+          <p>
+            Kullanıcıların hayalindeki araca kolayca ulaşmasını sağlamak için
+            güvenilir, hızlı ve kullanıcı dostu bir platform sunarak alım-satım
+            süreçlerini şeffaflaştırıp müşteri memnuniyetini en üst düzeyde
+            tutmak ve otomobil dünyasında güvenilir bir rehber olmak.
+          </p>
+          <p></p>
+          <p></p>
+          <a href="#" class="btn">Daha Fazla</a>
+        </div>
+      </div>
+    </section>
+    <!--! about section end  -->
+
+    <!--! contact section start  -->
+    <section class="iletişim" id="iletişim">
+      <h1 class="heading">İletişim <span></span></h1>
+      <div class="row">
+        <iframe
+          class="map"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12037.852231349814!2d28.985091699999998!3d41.03700175!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab7650656bd63%3A0x8ca058b28c20b6c3!2zVGFrc2ltIE1leWRhbsSxLCBHw7xtw7zFn3N1eXUsIDM0NDM1IEJleW_En2x1L8Swc3RhbmJ1bA!5e0!3m2!1str!2str!4v1652655842555!5m2!1str!2str"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+        <form>
+          <h3>get in touch</h3>
+          <div class="inputBox">
+            <i class="fas fa-user"></i>
+            <input type="text" placeholder="name" />
+          </div>
+          <div class="inputBox">
+            <i class="fas fa-envelope"></i>
+            <input type="email" placeholder="email" />
+          </div>
+          <div class="inputBox">
+            <i class="fas fa-phone"></i>
+            <input type="number" placeholder="phone number" />
+          </div>
+          <input type="submit" class="btn" value="contact now" />
+        </form>
+      </div>
+    </section>
+    <!--! contact section end  -->
+
+    <!--! blogs section start  -->
+    <section class="blogs" id="blogs">
+      <h1 class="heading">our <span>blog</span></h1>
+      <div class="box-container">
+        <div class="box">
+          <div class="image">
+            <img src="images/blog-1.jpg" alt="blog" />
+          </div>
+          <div class="content">
+            <a href="#" class="title"></a>
+            <span>by admin / 10st may, 2020</span>
+            <p>
+              Lorem Ipsum Dolor Sit Amet Consectetur, Adipisicing Elit.
+              Temporibus, Laudantium!
+            </p>
+            <a href="#" class="btn">buton</a>
+          </div>
+        </div>
+        <div class="box">
+          <div class="image">
+            <img src="images/blog-2.jpg" alt="blog" />
+          </div>
+          <div class="content">
+            <a href="#" class="title"></a>
+            <span>by admin / 10st may, 2020</span>
+            <p>
+              Lorem Ipsum Dolor Sit Amet Consectetur, Adipisicing Elit.
+              Temporibus, Laudantium!
+            </p>
+            <a href="#" class="btn">buton</a>
+          </div>
+        </div>
+        <div class="box">
+          <div class="image">
+            <img src="images/blog-3.jpg" alt="blog" />
+          </div>
+          <div class="content">
+            <a href="#" class="title"></a>
+            <span>by admin / 10st may, 2020</span>
+            <p>
+              Lorem Ipsum Dolor Sit Amet Consectetur, Adipisicing Elit.
+              Temporibus, Laudantium!
+            </p>
+            <a href="#" class="btn">buton</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--! blogs section end  -->
+
+    <!DOCTYPE html>
+    <html lang="en">
+      <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Araç Listesi</title>
+        <style>
+          .car-item {
+            border: 1px solid #ddd;
+            margin: 10px;
+            padding: 10px;
+            border-radius: 5px;
+          }
+          form {
+            margin-bottom: 20px;
+          }
+          label {
+            margin-right: 10px;
+          }
+          input {
+            margin-right: 10px;
+            padding: 5px;
+          }
+        </style>
+      </head>
+    </html>
+
+    <!--! footer section start  -->
+    <section class="footer">
+      <div class="search">
+        <input type="text" class="search-input" placeholder="Search" />
+        <button class="btn btn-primary">search</button>
+      </div>
+      <div class="share">
+        <a href="#" class="fab fa-facebook"></a>
+        <a href="#" class="fab fa-twitter"></a>
+        <a href="#" class="fab fa-instagram"></a>
+        <a href="#" class="fab fa-linkedin"></a>
+        <a href="#" class="fab fa-pinterest"></a>
+      </div>
+
+      <div class="links">
+        <a href="#" class="active">Home</a>
+        <a href="#">About</a>
+        <a href="#">Menu</a>
+        <a href="#">İletişim</a>
+        <a href="#">Blogs</a>
+      </div>
+
+      <div class="credit">
+        created by <span>Mahmut Bağlama</span> | all rigths reserved
+      </div>
+    </section>
+    <!--! footer section end  -->
+
+    <script src="js/script.js"></script>
+  </body>
+</html>

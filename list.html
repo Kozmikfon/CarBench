@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Araç Listesi</title>
+  <style>
+    .car-list-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 10px;
+    }
+
+    .car-item {
+      border: 1px solid #ddd;
+      padding: 10px;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+    }
+  </style>
+</head>
+<body>
+  <h1>Araç Listesi</h1>
+  <div id="car-list" class="car-list-container">Yükleniyor...</div>
+  <script src="js/list.js"></script>
+</body>
+</html>
