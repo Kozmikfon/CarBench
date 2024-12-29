@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>İlan Ver</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 20px;
+    }
+    form {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+      margin: auto;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    input, textarea, button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 1rem;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <h1 style="text-align: center;">İlan Ver</h1>
+  <form id="addCarForm">
+    <label for="urunAdi">Ürün Adı:</label>
+    <input type="text" id="urunAdi" name="urunAdi" placeholder="Aracınızın başlığı" required>
+
+    <label for="marka">Marka:</label>
+    <input type="text" id="marka" name="marka" placeholder="Örn: Audi" required>
+
+    <label for="model">Model:</label>
+    <input type="text" id="model" name="model" placeholder="Örn: A3 Sedan" required>
+
+    <label for="fiyat">Fiyat:</label>
+    <input type="text" id="fiyat" name="fiyat" placeholder="Örn: 1.500.000 TL" required>
+
+    <label for="yil">Yıl:</label>
+    <input type="number" id="yil" name="yil" placeholder="Örn: 2022" required>
+
+    <label for="kilometre">Kilometre:</label>
+    <input type="text" id="kilometre" name="kilometre" placeholder="Örn: 15.000 km" required>
+
+    <label for="yakitTipi">Yakıt Tipi:</label>
+    <input type="text" id="yakitTipi" name="yakitTipi" placeholder="Örn: Dizel" required>
+
+    <label for="vitesTipi">Vites Tipi:</label>
+    <input type="text" id="vitesTipi" name="vitesTipi" placeholder="Örn: Otomatik" required>
+
+    <label for="renk">Renk:</label>
+    <input type="text" id="renk" name="renk" placeholder="Örn: Beyaz" required>
+
+    <label for="motorHacmi">Motor Hacmi:</label>
+    <input type="text" id="motorHacmi" name="motorHacmi" placeholder="Örn: 2000 cc" required>
+
+    <label for="motorGucu">Motor Gücü:</label>
+    <input type="text" id="motorGucu" name="motorGucu" placeholder="Örn: 150 hp" required>
+
+    <label for="kasaTipi">Kasa Tipi:</label>
+    <input type="text" id="kasaTipi" name="kasaTipi" placeholder="Örn: Sedan" required>
+
+    <label for="aciklama">Açıklama:</label>
+    <textarea id="aciklama" name="aciklama" rows="5" placeholder="Aracınız hakkında açıklama ekleyin..." required></textarea>
+
+    <label for="resimURL">Resim URL:</label>
+    <input type="text" id="resimURL" name="resimURL" placeholder="Aracınızın fotoğraf URL'si" required>
+
+    <button type="submit">İlan Ver</button>
+  </form>
+
+  <script>
+    document.getElementById("addCarForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      // Form verilerini JSON formatına dönüştür
+      const formData = new FormData(e.target);
+      const data = Object.fromEntries(formData.entries());
+
+      try {
+        // API'ye POST isteği gönder
+        const response = await fetch("http://localhost:5019/api/pendingCars", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+
+        // Yanıtı kontrol et
+        if (response.ok) {
+          const result = await response.json();
+          alert("İlan başarıyla gönderildi, admin onayı bekliyor.");
+          console.log("Gönderilen İlan:", result.data);
+        } else {
+          const error = await response.json();
+          alert("Bir hata oluştu: " + error.error);
+        }
+      } catch (error) {
+        console.error("Bir hata oluştu:", error);
+        alert("Bir hata oluştu. Lütfen tekrar deneyin.");
+      }
+    });
+  </script>
+</body>
+</html>

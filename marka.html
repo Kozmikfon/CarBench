@@ -18,18 +18,17 @@
     <!--! header section start  -->
     <header class="header">
       <a href="#" class="logo">
-        <img src="images/logo.png" alt="logo" />
+        <img src="images/indir.jpeg" alt="logo" />
       </a>
       <nav class="navbar">
         <a href="index.html">Anasayfa</a>
         <a href="hakkında.html">Hakkında</a>
         <a href="marka.html" class="active">Markalar</a>
         <a href="iletişim.html">İletişim</a>
-        <a href="blogs.html">Blogs</a>
+        
       </nav>
 
       <div class="buttons">
-       
         <button id="menu-btn">
           <i class="fas fa-bars"></i>
         </button>
@@ -48,7 +47,7 @@
       <div class="cart-items-container">
         <div class="cart-item">
           <i class="fas fa-times"></i>
-          <img src="images/menu-1.png" alt="menu" />
+          <img src="images/alfa.png" alt="menu" />
           <div class="content">
             <h3>cart item 01</h3>
             <div class="price">$15.99/-</div>
@@ -90,16 +89,16 @@
         <!-- SUV -->
         <div class="box">
           <div class="box-head">
-            <img src="images/suv.png" alt="SUV" />
+            <img src="images/alfa.png" alt="SUV" />
             <span class="menu-category">SUV</span>
             <h3>SUV</h3>
             <div class="price"><span></span></div>
           </div>
           <div class="box-bottom">
-            <a href="#" class="btn">Görüntüle</a>
+            
           </div>
         </div>
-        
+
         <!-- Sedan -->
         <div class="box">
           <div class="box-head">
@@ -109,23 +108,23 @@
             <div class="price"><span></span></div>
           </div>
           <div class="box-bottom">
-            <a href="#" class="btn">Görüntüle</a>
+            
           </div>
         </div>
-    
+
         <!-- Hatchback -->
         <div class="box">
           <div class="box-head">
-            <img src="images/hatchback.png" alt="Hatchback" />
+            <img src="images/hatchback.jpeg" alt="Hatchback" />
             <span class="menu-category">Hatchback</span>
             <h3>Hatchback</h3>
             <div class="price"><span></span></div>
           </div>
           <div class="box-bottom">
-            <a href="#" class="btn">Görüntüle</a>
+            
           </div>
         </div>
-    
+
         <!-- Cabrio -->
         <div class="box">
           <div class="box-head">
@@ -135,11 +134,12 @@
             <div class="price"><span></span></div>
           </div>
           <div class="box-bottom">
-            <a href="#" class="btn">Görüntüle</a>
+            
           </div>
         </div>
       </div>
-      </section>
+          
+    </section>
     <!--! menu section end  -->
 
     <!--! footer section start  -->
@@ -149,19 +149,85 @@
         <button class="btn btn-primary">search</button>
       </div>
       <div class="share">
-        <a href="#" class="fab fa-facebook"></a>
-        <a href="#" class="fab fa-twitter"></a>
-        <a href="#" class="fab fa-instagram"></a>
-        <a href="#" class="fab fa-linkedin"></a>
-        <a href="#" class="fab fa-pinterest"></a>
+        <!-- Sosyal medya bağlantıları -->
+        <a
+          href="https://www.facebook.com"
+          class="fab fa-facebook"
+          target="_blank"
+          rel="noopener noreferrer"
+        ></a>
+        <a
+          href="https://www.twitter.com"
+          class="fab fa-twitter"
+          target="_blank"
+          rel="noopener noreferrer"
+        ></a>
+        <a
+          href="https://www.instagram.com"
+          class="fab fa-instagram"
+          target="_blank"
+          rel="noopener noreferrer"
+        ></a>
+        <a
+          href="https://www.linkedin.com"
+          class="fab fa-linkedin"
+          target="_blank"
+          rel="noopener noreferrer"
+        ></a>
+        <a
+          href="https://www.pinterest.com"
+          class="fab fa-pinterest"
+          target="_blank"
+          rel="noopener noreferrer"
+        ></a>
       </div>
 
       <div class="credit">
-        created by <span>Ahmet Hakan Pusa</span> | tüm hakları saklıdır
+         <span>Car Bench</span> 
       </div>
     </section>
     <!--! footer section end  -->
-
+    <script>
+      document.addEventListener("DOMContentLoaded", async function () {
+        const brandListContainer = document.querySelector(".box-container");
+    
+        async function fetchBrands() {
+          try {
+            const response = await fetch("http://localhost:5019/api/cars/marka");
+            const data = await response.json();
+    
+            brandListContainer.innerHTML = "";
+    
+            if (!data.data || data.data.length === 0) {
+              brandListContainer.innerHTML = "<p>Hiç marka bulunamadı.</p>";
+              return;
+            }
+    
+            data.data.forEach((brand) => {
+              const brandCard = `
+                <div class="box">
+                  <div class="box-head">
+                    <img src="images/alfa.png" alt="${brand}" />
+                    <span class="menu-category">${brand}</span>
+                    <h3>${brand}</h3>
+                  </div>
+                  <div class="box-bottom">
+                    
+                  </div>
+                </div>`;
+              brandListContainer.innerHTML += brandCard;
+            });
+          } catch (error) {
+            console.error("Marka verileri alınırken hata oluştu:", error);
+            brandListContainer.innerHTML = "<p>Veri alınırken bir sorun oluştu. Lütfen tekrar deneyin.</p>";
+          }
+        }
+    
+        fetchBrands();
+      });
+    </script>
+    
     <script src="js/script.js"></script>
-  </body>
+     
+  </body>
 </html>

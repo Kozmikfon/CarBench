@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carbench Sigorta ve Kasko</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Genel Ayarlar */
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+/* Header */
+.header {
+  background-color: #e84242;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+.nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.nav ul li {
+  display: inline;
+}
+
+.nav ul li a {
+  color: rgb(2, 2, 2);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.nav ul li a:hover {
+  text-decoration: underline;
+}
+
+/* Ana Konteyner */
+.container {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  background: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+/* Bölüm Başlıkları */
+.info-section h2, .contact-section h2 {
+  color: #070d11;
+  margin-bottom: 10px;
+}
+
+/* İletişim Formu */
+.contact-form {
+  margin-top: 20px;
+}
+
+.contact-form label {
+  display: block;
+  margin: 10px 0 5px;
+  font-weight: bold;
+}
+
+.contact-form input, .contact-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.contact-form button {
+  background-color: #219621;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.contact-form button:hover {
+  background-color: #e84242;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 10px;
+  background: #333;
+  color: white;
+  margin-top: 20px;
+}
+
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <h1>Carbench Sigorta ve Kasko</h1>
+    <nav class="nav">
+      <ul>
+        <li><a href="hakkında.html">Hakkında</a></li>
+        <li><a href="Aracrehber.html">Araç alım rehberi</a></li>
+        <li><a href="iletişim.html">İletişim</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Ana İçerik -->
+  <main class="container">
+    <!-- Sigorta Hakkında -->
+    <section id="about" class="info-section">
+      <h2>Sigorta Nedir?</h2>
+      <p>
+        Sigorta, bireylerin ve kurumların karşılaşabileceği risklere karşı finansal güvence sağlayan bir hizmettir. Araç sigortası, aracınızı ve sizi korumak için en iyi yoldur.
+      </p>
+    </section>
+
+    <!-- Hizmetler -->
+    <section id="services" class="info-section">
+      <h2>Kasko ve Sigorta Hizmetlerimiz</h2>
+      <ul>
+        <li>Kapsamlı araç sigortası</li>
+        <li>Kasko sigortası</li>
+        <li>Trafik sigortası</li>
+        <li>Doğal afet teminatı</li>
+        <li>Hırsızlık ve yangın koruması</li>
+      </ul>
+    </section>
+
+    <!-- İletişim -->
+    <section id="contact" class="contact-section">
+      <h2>İletişim</h2>
+      <p>Herhangi bir sorunuz varsa veya teklif almak istiyorsanız, aşağıdaki bilgileri kullanarak bize ulaşabilirsiniz.</p>
+      <div class="contact-info">
+        <p><strong>Adres:</strong> Ankara, Türkiye</p>
+        <p><strong>Telefon:</strong> +90 312 123 45 67</p>
+        <p><strong>Email:</strong> info@carbench.com</p>
+      </div>
+      <form class="contact-form">
+        <label for="name">Adınız:</label>
+        <input type="text" id="name" name="name" placeholder="Adınızı girin" required>
+        
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="Email adresinizi girin" required>
+        
+        <label for="message">Mesajınız:</label>
+        <textarea id="message" name="message" rows="5" placeholder="Mesajınızı buraya yazın" required></textarea>
+        
+        <button type="submit" class="cta-btn">Gönder</button>
+      </form>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2024 Carbench Sigorta ve Kasko. Tüm hakları saklıdır.</p>
+  </footer>
+</body>
+</html>

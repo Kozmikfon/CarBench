@@ -61,12 +61,13 @@ a {
   border-radius: 30rem;
   font-size: 1.7rem;
   color: #fff;
-  background-color: var(--black-color);
+  background-color: #e84242;
   cursor: pointer;
 }
 
 .btn:hover {
   opacity: 0.9;
+  
 }
 
 .heading {
@@ -81,7 +82,14 @@ a {
   color: var(--black-color);
   text-transform: uppercase;
 }
-
+ .listbutton{
+  background: 150px;
+  height: 150px;
+  width: 200px;
+  top:100%;
+  left:100%;
+  transition: all 0.7s;
+ }
 .search-input {
   font-size: 1.6rem;
   color: var(--black-color);
@@ -225,10 +233,10 @@ a {
 /*! home start  */
 .home {
   min-height: 100vh;
-  background: url(../images/anasayfa.png) no-repeat;
+  background: url(../images/aston.jpg) no-repeat;
   background-size: cover;
-  background-position: center;
-  margin-top: -14.5rem;
+  background-position: 80% center; /* Arka plan görüntüsünü sağa kaydırır */
+  margin-top: -16.5rem;
   display: flex;
   align-items: center;
 }
@@ -278,6 +286,7 @@ a {
 .menu .box-container .box .menu-category {
   font-size: 1.2rem;
   text-transform: lowercase;
+  
 }
 
 .menu .box-container .box h3 {
@@ -680,9 +689,19 @@ a {
     padding: 2rem;
   }
 
-  .products .box-container .box .box-head .name {
-    font-size: 3.4rem;
-  }
+ .products .box-container .box .box-head .name {
+  font-size: 3.4rem; /* Burada özel boyutu ayarlayabilirsiniz */
+}
+.products .box-container .box .box-head img {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 200px;
+  display: block;
+  margin: auto;
+}
+
+
 }
 
 @media (max-width: 768px) {
@@ -701,7 +720,7 @@ a {
   }
 
   .header .navbar.active {
-    right: 3rem;
+    right: 1rem;
   }
 
   .header .navbar a {
@@ -722,5 +741,21 @@ a {
     width: 30rem;
   }
 }
+body {
+  opacity: 1; /* Sayfa başlangıçta görünür */
+  transition: opacity 0.5s ease; /* Geçiş efekti */
+}
+body {
+  opacity: 1; /* Sayfa başlangıçta görünür */
+  transition: opacity 0.5s ease; /* Geçiş efekti */
+}
+
+
+
+
+
+
+
+
 
 /*! responsive end  */

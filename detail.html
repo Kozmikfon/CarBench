@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Araç Detayları</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <style>
+      /* Genel stil */
+      body {
+        font-family: "Roboto", sans-serif;
+        margin: 0;
+        background-color: #f2f2f2;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      .car-detail {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .car-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 15px;
+      }
+
+      .car-images {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+      }
+
+      .car-images img {
+        width: 48%;
+        height: auto;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .car-details {
+        margin-top: 30px;
+      }
+
+      .car-details h3 {
+        font-size: 1.5rem;
+        color: #333;
+        margin-bottom: 10px;
+      }
+
+      .car-details p {
+        font-size: 1.1rem;
+        color: #666;
+        margin-bottom: 10px;
+      }
+
+      .car-price {
+        font-size: 1.5rem;
+        color: #4caf50;
+        font-weight: bold;
+        margin-top: 20px;
+      }
+
+      .btn-back {
+        padding: 12px 20px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-align: center;
+        font-size: 1rem;
+        transition: background 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+      }
+
+      .btn-back:hover {
+        background-color: #45a049;
+      }
+
+      .btn-contact {
+        padding: 12px 20px;
+        background-color: #e84242;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-align: center;
+        font-size: 1rem;
+        transition: background 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+        margin-top: 20px;
+      }
+
+      .btn-contact:hover {
+        background-color: #e64a19;
+      }
+
+      /* Popup form */
+      .popup-form {
+        display: none; /* Başlangıçta gizli */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .form-container {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        width: 50%;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .form-container h3 {
+        margin-bottom: 20px;
+        color: #333;
+      }
+
+      .form-container input,
+      .form-container textarea,
+      .form-container button {
+        width: 100%;
+        padding: 12px;
+        margin: 10px 0;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+        font-size: 1rem;
+      }
+
+      .form-container button {
+        background-color: #4caf50;
+        color: white;
+        cursor: pointer;
+      }
+
+      .form-container button:hover {
+        background-color: #45a049;
+      }
+
+      .form-container .close-btn {
+        background-color: #e84242;
+        margin-top: 10px;
+      }
+
+      .form-container .close-btn:hover {
+        background-color: #e84242;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="car-detail">
+        <!-- Araç Başlık ve Resimleri -->
+        <h1 class="car-title" id="car-title">Araç Başlığı</h1>
+
+        <div class="car-images" id="car-images">
+          <img src="" alt="Araç Resmi" id="car-image" />
+          <img src="" alt="Araç Resmi 2" id="car-image-2" />
+        </div>
+
+        <!-- Araç Detayları -->
+        <div class="car-details">
+          <h3>Genel Bilgiler</h3>
+          <p><strong>Marka:</strong> <span id="car-brand">Marka</span></p>
+          <p><strong>Seri:</strong> <span id="car-series">Seri</span></p>
+          <p><strong>Model:</strong> <span id="car-model">Model</span></p>
+          <p><strong>Yıl:</strong> <span id="car-year">Yıl</span></p>
+          <p>
+            <strong>Kilometre:</strong> <span id="car-mileage">Kilometre</span>
+          </p>
+          <p>
+            <strong>Vites Tipi:</strong>
+            <span id="car-transmission">Vites Tipi</span>
+          </p>
+          <p>
+            <strong>Yakıt Tipi:</strong> <span id="car-fuel">Yakıt Tipi</span>
+          </p>
+          <p><strong>Renk:</strong> <span id="car-color">Renk</span></p>
+          <p>
+            <strong>Motor Hacmi:</strong>
+            <span id="car-engine">Motor Hacmi</span>
+          </p>
+          <p>
+            <strong>Motor Gücü:</strong> <span id="car-power">Motor Gücü</span>
+          </p>
+          <p><strong>Çekiş:</strong> <span id="car-drive">Çekiş</span></p>
+          <p><strong>Ağırlık:</strong> <span id="car-weight">Ağırlık</span></p>
+          <p>
+            <strong>Bagaj Hacmi:</strong>
+            <span id="car-trunk">Bagaj Hacmi</span>
+          </p>
+          <p>
+            <strong>Plaka Uyruğu:</strong>
+            <span id="car-plate">Plaka Uyruğu</span>
+          </p>
+          <p>
+            <strong>İlan Tarihi:</strong> <span id="car-date">İlan Tarihi</span>
+          </p>
+          <p>
+            <strong>Açıklama:</strong>
+            <span id="car-description">Açıklama</span>
+          </p>
+
+          <h3>Diğer Özellikler</h3>
+          <p>
+            <strong>Hasar Bilgisi:</strong>
+            <span id="car-damage">Hasar Bilgisi</span>
+          </p>
+          <p>
+            <strong>İlan Numarası:</strong>
+            <span id="car-listing-no">İlan No</span>
+          </p>
+          <p>
+            <strong>Garanti Durumu:</strong>
+            <span id="car-warranty">Garanti Durumu</span>
+          </p>
+        </div>
+
+        <!-- Donanım -->
+        <div class="car-details">
+          <h3>Donanım</h3>
+          <p>
+            <strong>Araç Türü:</strong> <span id="car-type">Araç Türü</span>
+          </p>
+          <p>
+            <strong>İlk Sahibi Mi:</strong>
+            <span id="car-first-owner">Aracın ilk sahibiyim</span>
+          </p>
+          <p><strong>Sınıfı:</strong> <span id="car-class">Sınıfı</span></p>
+          <p>
+            <strong>Plaka Uyruğu:</strong>
+            <span id="car-plate-country">Plaka Uyruğu</span>
+          </p>
+          <p>
+            <strong>Şanzıman:</strong>
+            <span id="car-transmission-type">Şanzıman</span>
+          </p>
+          <p>
+            <strong>Ortalama Kasko:</strong>
+            <span id="car-insurance">Ortalama Kasko</span>
+          </p>
+          <p>
+            <strong>Ortalama Trafik Sigortası:</strong>
+            <span id="car-traffic-insurance">Ortalama Trafik Sigortası</span>
+          </p>
+          <p>
+            <strong>Silindir Sayısı:</strong>
+            <span id="car-cylinder">Silindir Sayısı</span>
+          </p>
+          <p><strong>Tork:</strong> <span id="car-torque">Tork</span></p>
+          <p>
+            <strong>Maksimum Güç:</strong>
+            <span id="car-max-power">Maksimum Güç</span>
+          </p>
+          <p>
+            <strong>Hızlanma (0-100):</strong>
+            <span id="car-acceleration">Hızlanma</span>
+          </p>
+        </div>
+
+        <!-- Fiyat ve Takasa Uygunluk -->
+        <div class="car-price" id="car-price">Fiyat:</div>
+        <p class="car-exchange" id="car-exchange">Takasa Uygun:</p>
+
+        <!-- İletişim Butonu -->
+        <button class="btn-contact" onclick="openPopup()">İletişime Geç</button>
+        <p>Telefon: <span id="car-phone">Telefon Numarası</span></p>
+
+        <!-- Geri Dön Butonu -->
+        <a href="javascript:history.back()" class="btn-back">Geri Dön</a>
+      </div>
+    </div>
+
+    <!-- Popup Form -->
+    <div class="popup-form" id="popup-form">
+      <div class="form-container">
+        <h3>Satıcıya Mesaj Gönder</h3>
+        <textarea
+          id="message-input"
+          rows="1"
+          placeholder="Mail adresiniz:"
+          required
+        ></textarea>
+        <textarea
+          id="message-input"
+          rows="4"
+          placeholder="Mesajınızı buraya yazın..."
+          required
+        ></textarea>
+        <button onclick="sendMessage()">Gönder</button>
+        <button class="close-btn" onclick="closePopup()">Kapat</button>
+      </div>
+    </div>
+
+    <script>
+      function openPopup() {
+        document.getElementById("popup-form").style.display = "flex";
+      }
+
+      function closePopup() {
+        document.getElementById("popup-form").style.display = "none";
+      }
+
+      function sendMessage() {
+        const messageInput = document.getElementById("message-input");
+        const message = messageInput.value.trim();
+        if (message) {
+          // Burada mesaj gönderme işlemi yapılabilir (API ya da başka bir yöntemle)
+          alert("Mesajınız gönderildi!");
+          messageInput.value = "";
+          closePopup();
+        } else {
+          alert("Lütfen mesajınızı yazın.");
+        }
+      }
+
+      // Araç detaylarını al
+      document.addEventListener("DOMContentLoaded", async function () {
+        const carId = localStorage.getItem("selectedCarId");
+
+        if (!carId) {
+          alert("Seçilen araç ID'si bulunamadı. Lütfen bir araç seçin.");
+          return;
+        }
+
+        const carTitle = document.getElementById("car-title");
+        const carImage = document.getElementById("car-image");
+        const carImage2 = document.getElementById("car-image-2");
+        const carBrand = document.getElementById("car-brand");
+        const carSeries = document.getElementById("car-series");
+        const carModel = document.getElementById("car-model");
+        const carYear = document.getElementById("car-year");
+        const carMileage = document.getElementById("car-mileage");
+        const carFuel = document.getElementById("car-fuel");
+        const carTransmission = document.getElementById("car-transmission");
+        const carColor = document.getElementById("car-color");
+        const carEngine = document.getElementById("car-engine");
+        const carPower = document.getElementById("car-power");
+        const carDrive = document.getElementById("car-drive");
+        const carWeight = document.getElementById("car-weight");
+        const carTrunk = document.getElementById("car-trunk");
+        const carPlate = document.getElementById("car-plate");
+        const carDate = document.getElementById("car-date");
+        const carDescription = document.getElementById("car-description");
+        const carPrice = document.getElementById("car-price");
+        const carExchange = document.getElementById("car-exchange");
+        const carPhone = document.getElementById("car-phone");
+        const carType = document.getElementById("car-type");
+        const carFirstOwner = document.getElementById("car-first-owner");
+        const carClass = document.getElementById("car-class");
+        const carPlateCountry = document.getElementById("car-plate-country");
+        const carTransmissionType = document.getElementById(
+          "car-transmission-type"
+        );
+        const carInsurance = document.getElementById("car-insurance");
+        const carTrafficInsurance = document.getElementById(
+          "car-traffic-insurance"
+        );
+        const carCylinder = document.getElementById("car-cylinder");
+        const carTorque = document.getElementById("car-torque");
+        const carMaxPower = document.getElementById("car-max-power");
+        const carAcceleration = document.getElementById("car-acceleration");
+
+        function setData(element, value) {
+          if (value) {
+            element.textContent = value;
+            element.style.display = "block";
+          } else {
+            element.style.display = "none";
+          }
+        }
+
+        function setImageData(imageElement, src) {
+          if (src) {
+            imageElement.src = src;
+            imageElement.style.display = "block";
+          } else {
+            imageElement.style.display = "none";
+          }
+        }
+
+        try {
+          const response = await fetch(
+            `http://localhost:5019/api/cars/${carId}`
+          );
+
+          if (!response.ok) {
+            throw new Error(
+              `API Hatası: ${response.status} - ${response.statusText}`
+            );
+          }
+
+          const car = await response.json(); // Tekil araç döner
+          console.log("Araç Detayları:", car);
+
+          if (!car) {
+            console.error("Araç bulunamadı.");
+            alert("Araç bulunamadı.");
+            return;
+          }
+
+          // Veri kontrolü ve ayarlama
+          setData(carTitle, car["Ürün Adı"]);
+          setImageData(carImage, car["Resim URL"]);
+          setData(carBrand, car["Marka"]);
+          setData(carSeries, car["Seri"]);
+          setData(carModel, car["Model"]);
+          setData(carYear, car["Yıl"]);
+          setData(carMileage, car["Kilometre"]);
+          setData(carFuel, car["Yakıt Tipi"]);
+          setData(carTransmission, car["Vites Tipi"]);
+          setData(carColor, car["Renk"]);
+          setData(carEngine, car["Motor Hacmi"]);
+          setData(carPower, car["Motor Gücü"]);
+          setData(carDrive, car["Çekiş"]);
+          setData(carWeight, car["Ağırlık"]);
+          setData(carTrunk, car["Bagaj Hacmi"]);
+          setData(carPlate, car["Plaka Uyruğu"]);
+          setData(carDate, car["İlan Tarihi"]);
+          setData(carDescription, car["Açıklama"]);
+          setData(carPrice, car["Fiyat"]);
+          setData(carExchange, car["Takasa Uygun"]);
+          setData(carPhone, car["Telefon Numarası"]);
+          setData(carType, car["Araç Türü"]);
+          setData(carFirstOwner, car["Aracın ilk sahibiyim"]);
+          setData(carClass, car["Sınıfı"]);
+          setData(carPlateCountry, car["Plaka Uyruğu"]);
+          setData(carTransmissionType, car["Şanzıman"]);
+          setData(carInsurance, car["Ortalama Kasko"]);
+          setData(carTrafficInsurance, car["Ortalama Trafik Sigortası"]);
+          setData(carCylinder, car["Silindir Sayısı"]);
+          setData(carTorque, car["Tork"]);
+          setData(carMaxPower, car["Maksimum Güç"]);
+          setData(carAcceleration, car["Hızlanma (0-100)"]);
+        } catch (error) {
+          console.error("Hata oluştu:", error);
+          alert("Bir hata oluştu, lütfen tekrar deneyin.");
+        }
+      });
+    </script>
+  </body>
+</html>

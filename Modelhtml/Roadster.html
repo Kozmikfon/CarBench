@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Roadster Araçlar</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: "Roboto", sans-serif;
+      margin: 0;
+      background-color: #f2f2f2;
+    }
+
+    .navbar {
+      background-color: #e84242;
+      color: white;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      margin: 0 10px;
+      font-weight: 500;
+    }
+
+    .navbar a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    #car-list {
+      margin-top: 20px;
+    }
+
+    .car-item {
+      padding: 10px;
+      margin: 10px 0;
+      background-color: white;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .car-item h3 {
+      font-size: 1.2rem;
+    }
+
+    .car-item p {
+      color: #666;
+    }
+
+    .btn-detail {
+      padding: 10px 20px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-align: center;
+      font-size: 1rem;
+      transition: background-color 0.3s;
+      text-decoration: none;
+    }
+
+    .btn-detail:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div class="logo">
+      <a href="#">Araç Portalı</a>
+    </div>
+    <div class="menu">
+      <a href="#">Anasayfa</a>
+      <a href="#">Roadster Araçlar</a>
+      <a href="#">SUV Araçlar</a>
+      <a href="#">Hakkımızda</a>
+      <a href="#">İletişim</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <h1>Roadster Araçlar</h1>
+    <div id="car-list">
+      <!-- Burada filtrelenmiş araçlar listelenecek -->
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", async function () {
+      const carList = document.getElementById("car-list");
+
+      async function fetchRoadsterCars() {
+        carList.innerHTML = "<p>Veriler yükleniyor...</p>";
+
+        try {
+          const response = await fetch("http://localhost:5019/api/cars/roadster");
+          const data = await response.json();
+
+          carList.innerHTML = ""; // Önceki içeriği temizle
+
+          if (data.data.length === 0) {
+            carList.innerHTML = "<p>Hiç Roadster araç bulunamadı.</p>";
+            return;
+          }
+
+          data.data.forEach((car) => {
+            const carItem = document.createElement("div");
+            carItem.classList.add("car-item");
+            carItem.innerHTML = `
+              <h3>${car["Ürün Adı"] || "Bilinmeyen Ürün Adı"}</h3>
+              <p><strong>Fiyat:</strong> ${car.Fiyat || "Bilinmiyor"}</p>
+              <p><strong>Marka:</strong> ${car.Marka || "Bilinmiyor"}</p>
+              <p><strong>Model:</strong> ${car.Model || "Bilinmiyor"}</p>
+              <p><strong>Yıl:</strong> ${car["Yıl"] || "Bilinmiyor"}</p>
+              <p><strong>Yakıt Tipi:</strong> ${car["Yakıt Tipi"] || "Bilinmiyor"}</p>
+              <p><strong>Vites Tipi:</strong> ${car["Vites Tipi"] || "Bilinmiyor"}</p>
+            `;
+            carList.appendChild(carItem);
+          });
+        } catch (error) {
+          console.error("Veriler alınırken bir hata oluştu:", error);
+          carList.innerHTML = "<p>Veri alınırken bir sorun oluştu.</p>";
+        }
+      }
+
+      fetchRoadsterCars(); // Roadster araçlarını getir
+    });
+  </script>
+</body>
+</html>
