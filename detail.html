@@ -15,9 +15,30 @@
     <style>
       /* Genel stil */
       body {
-        font-family: "Roboto", sans-serif;
-        margin: 0;
-        background-color: #f2f2f2;
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #333;
+        padding: 1rem;
+      }
+
+      .navbar a {
+        color: white;
+        text-decoration: none;
+        margin: 0 1rem;
+      }
+
+      .navbar a:hover {
+        text-decoration: underline;
       }
 
       .container {
@@ -115,17 +136,41 @@
       }
 
       /* Popup form */
-      .popup-form {
-        display: none; /* Başlangıçta gizli */
+      #popup-form {
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        z-index: 1000;
-        align-items: center;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
         justify-content: center;
+        align-items: center;
+      }
+      .popup-content {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        width: 400px;
+        text-align: center;
+      }
+
+      textarea {
+        width: 100%;
+        height: 60px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        resize: none;
+      }
+
+      #messages-container {
+        background-color: black;
+        color: white;
+        border: 1px solid #ccc;
+        padding: 10px;
+        max-height: 200px;
+        overflow-y: auto;
+        margin-bottom: 10px;
       }
 
       .form-container {
@@ -173,6 +218,26 @@
     </style>
   </head>
   <body>
+    <!-- Navbar -->
+    <div class="navbar">
+      <div class="logo">
+        <a href="index.html" style="font-weight: bold; font-size: 1.2rem;">Car Bench</a>
+      </div>
+      <div class="menu">
+        <a href="index.html" class="active">Anasayfa</a>
+        <a href="iletişim.html" class="active">İletişim</a>
+        <a href="hakkında.html" class="active">Hakkında</a>
+        <a href="Aracrehber.html" class="active">Araç Alım Rehberi</a>
+      </div>
+      <div>
+        <button id="toggle-messages-button" style="background-color: rgb(37, 35, 35); color: rgb(255, 255, 255); border: 1px solid rgb(77, 77, 77);">
+          Mesajları Görüntüle
+        </button>
+        <div id="messages-container" style="display: none"></div>
+      </div>
+      
+    </div>
+
     <div class="container">
       <div class="car-detail">
         <!-- Araç Başlık ve Resimleri -->
@@ -180,7 +245,7 @@
 
         <div class="car-images" id="car-images">
           <img src="" alt="Araç Resmi" id="car-image" />
-          <img src="" alt="Araç Resmi 2" id="car-image-2" />
+          
         </div>
 
         <!-- Araç Detayları -->
@@ -289,6 +354,7 @@
 
         <!-- İletişim Butonu -->
         <button class="btn-contact" onclick="openPopup()">İletişime Geç</button>
+
         <p>Telefon: <span id="car-phone">Telefon Numarası</span></p>
 
         <!-- Geri Dön Butonu -->
@@ -296,29 +362,57 @@
       </div>
     </div>
 
+
+
+
+
     <!-- Popup Form -->
-    <div class="popup-form" id="popup-form">
-      <div class="form-container">
-        <h3>Satıcıya Mesaj Gönder</h3>
+    <!-- Mesaj Gönderme ve Görüntüleme Pop-Up -->
+    <div id="popup-form" style="display: none">
+      <div class="popup-content">
+        <h3>Mesajlaşma</h3>
+
+        <!-- Önceki Mesajları Görüntüleme Alanı -->
+        <button onclick="fetchMessages()">Mesajları Görüntüle</button>
+        <div
+          id="messages-container"
+          style="
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-top: 10px;
+            max-height: 200px;
+            overflow-y: auto;
+          "
+        >
+          <!-- Mesajlar burada gösterilecek -->
+        </div>
+        <input
+          type="hidden"
+          id="receiver-id"
+          value="63c1f5e5e547f9b1fc13a4a2"
+        />
+        <!-- Alıcı ID -->
+        <!-- Mesaj Gönderme Formu -->
         <textarea
           id="message-input"
-          rows="1"
-          placeholder="Mail adresiniz:"
-          required
-        ></textarea>
-        <textarea
-          id="message-input"
-          rows="4"
           placeholder="Mesajınızı buraya yazın..."
-          required
+          style="width: 100%; margin-top: 10px"
         ></textarea>
-        <button onclick="sendMessage()">Gönder</button>
-        <button class="close-btn" onclick="closePopup()">Kapat</button>
+        <button onclick="sendMessage()">Mesaj Gönder</button>
+        <button onclick="closePopup()">Kapat</button>
       </div>
     </div>
 
     <script>
       function openPopup() {
+        const token = localStorage.getItem("userToken"); // localStorage'dan token alınıyor
+
+        if (!token) {
+          alert("Mesaj göndermek için giriş yapmanız gerekiyor.");
+          window.location.href = "login.html"; // Kullanıcı giriş sayfasına yönlendiriliyor
+          return;
+        }
+
         document.getElementById("popup-form").style.display = "flex";
       }
 
@@ -326,18 +420,145 @@
         document.getElementById("popup-form").style.display = "none";
       }
 
-      function sendMessage() {
-        const messageInput = document.getElementById("message-input");
-        const message = messageInput.value.trim();
-        if (message) {
-          // Burada mesaj gönderme işlemi yapılabilir (API ya da başka bir yöntemle)
-          alert("Mesajınız gönderildi!");
-          messageInput.value = "";
-          closePopup();
-        } else {
+      // Mesaj Gönderme İşlevi
+      async function sendMessage() {
+        const receiver = document.getElementById("receiver-id").value;
+        const content = document.getElementById("message-input").value.trim();
+
+        if (!receiver || !content) {
           alert("Lütfen mesajınızı yazın.");
+          return;
+        }
+
+        const token = localStorage.getItem("userToken");
+
+        if (!token) {
+          alert("Mesaj göndermek için giriş yapmanız gerekiyor.");
+          window.location.href = "login.html";
+          return;
+        }
+
+        try {
+          const response = await fetch(
+            "http://localhost:5024/api/messages/send",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+              body: JSON.stringify({ receiver, content }),
+            }
+          );
+
+          if (response.status === 401) {
+            alert("Yetkilendirme hatası. Lütfen tekrar giriş yapın.");
+            localStorage.removeItem("userToken");
+            window.location.href = "login.html";
+            return;
+          }
+
+          const result = await response.json();
+
+          if (response.ok) {
+            alert("Mesaj gönderildi!");
+            document.getElementById("message-input").value = "";
+          } else {
+            alert("Mesaj gönderilemedi: " + result.error);
+          }
+        } catch (error) {
+          console.error("Mesaj gönderme hatası:", error);
+          alert("Bir hata oluştu. Lütfen tekrar deneyin.");
         }
       }
+
+      // Mesajlar kısmını açıp kapama fonksiyonu
+      async function toggleMessages() {
+        const container = document.getElementById("messages-container");
+        const isHidden = container.style.display === "none";
+
+        if (isHidden) {
+          // Mesajlar görünmüyorsa, göster ve mesajları getir
+          container.style.display = "block";
+          await fetchMessages();
+        } else {
+          // Mesajlar görünüyorsa, gizle
+          container.style.display = "none";
+        }
+      }
+
+      // Mesajları Getirme İşlevi
+      async function fetchMessages() {
+        const token = localStorage.getItem("userToken");
+        
+
+        if (!token) {
+          alert("Mesajları görüntülemek için giriş yapmanız gerekiyor.");
+          window.location.href = "login.html"; // Kullanıcıyı giriş sayfasına yönlendir
+          return;
+        }
+
+        try {
+          const response = await fetch("http://localhost:5024/api/messages", {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+
+          if (response.status === 401) {
+            alert("Yetkilendirme hatası. Lütfen tekrar giriş yapın.");
+            localStorage.removeItem("userToken");
+            window.location.href = "login.html"; // Giriş sayfasına yönlendir
+            return;
+          }
+
+          const result = await response.json();
+          if (response.ok) {
+            displayMessages(result.data);
+          } else {
+            alert("Mesajlar alınırken bir hata oluştu: " + result.error);
+          }
+        } catch (error) {
+          console.error("Mesajlar alınırken hata:", error);
+          alert("Bir hata oluştu. Lütfen tekrar deneyin.");
+        }
+      }
+
+      // Mesajları Görüntüleme
+      function displayMessages(messages) {
+        const container = document.getElementById("messages-container");
+        container.innerHTML = ""; // Önceki mesajları temizle
+
+        if (messages.length === 0) {
+          container.textContent = "Hiç mesajınız bulunmuyor.";
+          return;
+        }
+
+        messages.forEach((message) => {
+          const senderUsername =
+            message.sender?.username || "Bilinmeyen Gönderen";
+          const receiverUsername =
+            message.receiver?.username || "Bilinmeyen Alıcı";
+
+          const messageDiv = document.createElement("div");
+          messageDiv.style.border = "1px solid #ddd";
+          messageDiv.style.margin = "10px 0";
+          messageDiv.style.padding = "10px";
+          messageDiv.innerHTML = `
+            <strong>Gönderen:</strong> ${senderUsername} <br>
+            <strong>Alıcı:</strong> ${receiverUsername} <br>
+            <strong>Mesaj:</strong> ${message.content} <br>
+            <small>${new Date(message.createdAt).toLocaleString()}</small>
+            `;
+          container.appendChild(messageDiv);
+        });
+      }
+
+      // "Mesajları Görüntüle" düğmesine tıklayınca mesajları getir
+      document
+        .getElementById("toggle-messages-button")
+        .addEventListener("click", toggleMessages);
 
       // Araç detaylarını al
       document.addEventListener("DOMContentLoaded", async function () {
@@ -350,7 +571,7 @@
 
         const carTitle = document.getElementById("car-title");
         const carImage = document.getElementById("car-image");
-        const carImage2 = document.getElementById("car-image-2");
+       // const carImage2 = document.getElementById("car-image-2");
         const carBrand = document.getElementById("car-brand");
         const carSeries = document.getElementById("car-series");
         const carModel = document.getElementById("car-model");
@@ -406,7 +627,7 @@
 
         try {
           const response = await fetch(
-            `http://localhost:5019/api/cars/${carId}`
+            `http://localhost:5024/api/cars/${carId}`
           );
 
           if (!response.ok) {
@@ -462,6 +683,237 @@
           alert("Bir hata oluştu, lütfen tekrar deneyin.");
         }
       });
+    </script>
+    <style>
+      /* Chatbot Genel */
+      #chatbot-widget {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1000;
+        
+        
+        
+      }
+
+      /* Chatbot Başlatma Butonu */
+      .chatbot-toggle {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 50px;
+        padding: 15px 20px;
+        font-size: 0.9rem;
+        cursor: pointer;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease;
+        margin-left: 5%;
+        
+      }
+
+      .chatbot-toggle:hover {
+        background-color: #0056b3;
+        
+        
+      }
+
+      /* Chatbot Mesaj Penceresi */
+      .chatbot-window {
+        position: fixed;
+        bottom: 80px;
+        right: 400px;
+        width: 400px;
+        height: 500px;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        display: none;
+        flex-direction: column;
+        overflow: hidden;
+        
+      }
+
+      .chatbot-header {
+        background-color: #007bff;
+        color: white;
+        padding: 15px 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: medium;
+        
+        
+      }
+
+      .chatbot-messages {
+        flex: 1;
+        padding: 15px;
+        overflow-y: auto;
+        font-size: 1.1rem;
+        border-bottom: 1px solid #ccc;
+      }
+
+      .chatbot-messages .user {
+        text-align: right;
+        color: blue;
+        margin: 5px 0;
+        
+      }
+
+      .chatbot-messages .bot {
+        text-align: left;
+        color: green;
+        margin: 5px 0;
+        font-size: medium;
+        
+      }
+
+      .chatbot-form {
+        display: flex;
+        padding: 10px;
+        font-size: medium;
+      }
+
+      .chatbot-form input {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: medium;
+        
+      }
+
+      .chatbot-form button {
+        padding: 10px 15px;
+        background-color: #0479f7;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-left: 20;
+        
+        
+      }
+
+      .chatbot-form button:hover {
+        background-color: #2d77c7;
+      }
+
+      .chatbot-close {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.2rem;
+        cursor: pointer;
+      }
+    </style>
+    <section id="chatbot-widget">
+      <!-- Chatbot Başlatma Butonu -->
+      <button id="chatbot-toggle" class="chatbot-toggle">
+        💬 Yardımcı Olalım!
+      </button>
+
+      <!-- Chatbot Mesaj Penceresi -->
+      <div id="chatbot-window" class="chatbot-window">
+        <header class="chatbot-header">
+          <h3>Car Bench Chatbot</h3>
+          <button id="chatbot-close" class="chatbot-close">✖</button>
+        </header>
+        <div id="chatbot-messages" class="chatbot-messages"></div>
+        <form id="chatbot-form" class="chatbot-form">
+          <input
+            type="text"
+            id="chatbot-input"
+            placeholder="Sorunuzu yazın..."
+            required
+          />
+          <button type="submit">Gönder</button>
+        </form>
+      </div>
+    </section>
+
+    <main>
+      <div id="chatbot-window" style="display: none; flex-direction: column">
+        <div id="chatbot-header">
+          <button id="chatbot-close">X</button>
+          <h3>Chatbot</h3>
+        </div>
+        <div
+          id="chatbot-messages"
+          style="flex: 1; overflow-y: auto; padding: 10px"
+        ></div>
+        <form id="chatbot-form">
+          <input
+            type="text"
+            id="chatbot-input"
+            placeholder="Mesaj yazın..."
+            required
+          />
+          <button type="submit">Gönder</button>
+        </form>
+      </div>
+      <button id="chatbot-toggle">Chatbot</button>
+    </main>
+
+    <script>
+      // Chatbot Elemanları
+      const chatbotToggle = document.getElementById("chatbot-toggle");
+      const chatbotWindow = document.getElementById("chatbot-window");
+      const chatbotClose = document.getElementById("chatbot-close");
+      const chatbotForm = document.getElementById("chatbot-form");
+      const chatbotInput = document.getElementById("chatbot-input");
+      const chatbotMessages = document.getElementById("chatbot-messages");
+
+      // Chatbot Aç/Kapat İşlevi
+      chatbotToggle.addEventListener("click", () => {
+        chatbotWindow.style.display = "flex";
+      });
+
+      chatbotClose.addEventListener("click", () => {
+        chatbotWindow.style.display = "none";
+      });
+
+      // API Endpoint Ayarı
+      const apiUrl = "http://localhost:5024/api/chat"; // Backend'deki chat endpoint
+
+      // Form Gönderimi
+      chatbotForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const userMessage = chatbotInput.value;
+        addMessage(userMessage, "user");
+
+        try {
+          const response = await fetch(apiUrl, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ message: userMessage }),
+          });
+
+          const data = await response.json();
+
+          if (response.ok) {
+            addMessage(data.reply, "bot");
+          } else {
+            addMessage(data.error || "Bir hata oluştu.", "bot");
+          }
+        } catch (error) {
+          console.error("Chat hata:", error);
+          addMessage("Sunucuya bağlanırken bir hata oluştu.", "bot");
+        }
+
+        chatbotInput.value = "";
+      });
+
+      // Mesaj Ekleme Fonksiyonu
+      function addMessage(message, sender) {
+        const messageDiv = document.createElement("div");
+        messageDiv.className = sender;
+        messageDiv.textContent = message;
+        chatbotMessages.appendChild(messageDiv);
+        chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+      }
     </script>
   </body>
 </html>

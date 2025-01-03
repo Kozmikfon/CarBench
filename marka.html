@@ -25,7 +25,7 @@
         <a href="hakkında.html">Hakkında</a>
         <a href="marka.html" class="active">Markalar</a>
         <a href="iletişim.html">İletişim</a>
-        
+        <span id="user-info"></span>
       </nav>
 
       <div class="buttons">
@@ -94,9 +94,7 @@
             <h3>SUV</h3>
             <div class="price"><span></span></div>
           </div>
-          <div class="box-bottom">
-            
-          </div>
+          <div class="box-bottom"></div>
         </div>
 
         <!-- Sedan -->
@@ -107,9 +105,7 @@
             <h3>Sedan</h3>
             <div class="price"><span></span></div>
           </div>
-          <div class="box-bottom">
-            
-          </div>
+          <div class="box-bottom"></div>
         </div>
 
         <!-- Hatchback -->
@@ -120,9 +116,7 @@
             <h3>Hatchback</h3>
             <div class="price"><span></span></div>
           </div>
-          <div class="box-bottom">
-            
-          </div>
+          <div class="box-bottom"></div>
         </div>
 
         <!-- Cabrio -->
@@ -133,9 +127,7 @@
             <h3>Cabrio</h3>
             <div class="price"><span></span></div>
           </div>
-          <div class="box-bottom">
-            
-          </div>
+          <div class="box-bottom"></div>
         </div>
       </div>
           
@@ -183,26 +175,28 @@
       </div>
 
       <div class="credit">
-         <span>Car Bench</span> 
+        <span>Car Bench</span>
       </div>
     </section>
     <!--! footer section end  -->
     <script>
       document.addEventListener("DOMContentLoaded", async function () {
         const brandListContainer = document.querySelector(".box-container");
-    
+
         async function fetchBrands() {
           try {
-            const response = await fetch("http://localhost:5019/api/cars/marka");
+            const response = await fetch(
+              "http://localhost:5024/api/cars/marka"
+            );
             const data = await response.json();
-    
+
             brandListContainer.innerHTML = "";
-    
+
             if (!data.data || data.data.length === 0) {
               brandListContainer.innerHTML = "<p>Hiç marka bulunamadı.</p>";
               return;
             }
-    
+
             data.data.forEach((brand) => {
               const brandCard = `
                 <div class="box">
@@ -219,15 +213,124 @@
             });
           } catch (error) {
             console.error("Marka verileri alınırken hata oluştu:", error);
-            brandListContainer.innerHTML = "<p>Veri alınırken bir sorun oluştu. Lütfen tekrar deneyin.</p>";
+            brandListContainer.innerHTML =
+              "<p>Veri alınırken bir sorun oluştu. Lütfen tekrar deneyin.</p>";
           }
         }
-    
+
         fetchBrands();
       });
     </script>
-    
+
     <script src="js/script.js"></script>
-     
+    <style>
+      #user-info {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        background: #e06666;
+        padding: 10px;
+        border-radius: 20px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        margin-right: 10%;
+        margin-top:2% ;
+        font-weight: bold;
+      }
+
+      #username-display {
+        font-weight: bold;
+        margin-right: 10px;
+      }
+
+      a {
+        text-decoration: none;
+        color: #eb0404;
+        margin-right: 15px;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      button {
+        background-color: #dd1e05;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 3px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #b32400;
+      }
+    </style>
+    <div
+      id="user-info"
+      style="
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: #f8f6f6;
+        padding: 10px;
+        border-radius: 5px;
+        display: none;
+      "
+    >
+      <span id="username-display"></span>
+      <a href="#" id="logout-button" style="display: none">Çıkış Yap</a>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const token = localStorage.getItem("userToken");
+        const userLinks = document.getElementById("user-links");
+
+        if (token) {
+          const user = JSON.parse(atob(token.split(".")[1])); // Token'dan kullanıcı verisi alınır
+          userLinks.innerHTML = `
+            Hoş geldiniz, ${user.username}! 
+            <a href="#" id="logout-button" style="margin-left: 10px;">Çıkış Yap</a>
+        `;
+          document
+            .getElementById("logout-button")
+            .addEventListener("click", () => {
+              localStorage.removeItem("userToken"); // Token'ı sil
+              alert("Başarıyla çıkış yapıldı.");
+              window.location.reload(); // Sayfayı yenile
+            });
+        } else {
+          userLinks.innerHTML = `
+            <a href="login.html">Giriş Yap</a> | <a href="register.html">Üye Ol</a>
+        `;
+        }
+      });
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const token = localStorage.getItem("userToken");
+        const userInfo = document.getElementById("user-info");
+
+        if (token) {
+          const user = JSON.parse(atob(token.split(".")[1])); // Token'dan kullanıcı verisi alınır
+          userInfo.innerHTML = `
+            Hoş geldiniz, ${user.username}! 
+            <a href="#" id="logout-button" style="margin-left: 10px; font-weight:bold">Çıkış Yap</a>
+        `;
+          document
+            .getElementById("logout-button")
+            .addEventListener("click", () => {
+              localStorage.removeItem("userToken"); // Token'ı sil
+              alert("Başarıyla çıkış yaptınız.");
+              window.location.reload(); // Sayfayı yenile
+            });
+        } else {
+          userInfo.innerHTML = `
+            <a href="login.html" id="login-button">Giriş Yap</a> | 
+            <a href="register.html" id="register-button">Üye Ol</a>
+        `;
+        }
+      });
+    </script>
+    
   </body>
 </html>

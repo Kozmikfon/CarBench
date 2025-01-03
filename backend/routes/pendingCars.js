@@ -1,31 +1,18 @@
 const express = require("express");
-const PendingCar = require("../models/PendingCar"); // Bekleyen ilan modeli
+const PendingCar = require("../models/PendingCar");
 const router = express.Router();
 
-// Kullanıcı tarafından ilan verme
+// İlan ekleme rotası
 router.post("/", async (req, res) => {
   try {
-    const newPendingCar = new PendingCar({
-      urunAdi: req.body.urunAdi,
-      marka: req.body.marka,
-      model: req.body.model,
-      fiyat: req.body.fiyat,
-      yil: req.body.yil,
-      kilometre: req.body.kilometre,
-      yakitTipi: req.body.yakitTipi,
-      vitesTipi: req.body.vitesTipi,
-      renk: req.body.renk,
-      motorHacmi: req.body.motorHacmi,
-      motorGucu: req.body.motorGucu,
-      kasaTipi: req.body.kasaTipi,
-      aciklama: req.body.aciklama,
-      resimURL: req.body.resimURL,
-    });
-
+    const newPendingCar = new PendingCar(req.body);
     const savedCar = await newPendingCar.save();
-    res.status(201).json({ message: "İlan başarıyla kaydedildi, admin onayı bekliyor.", data: savedCar });
+    res.status(201).json({
+      message: "İlan başarıyla kaydedildi, admin onayı bekliyor.",
+      data: savedCar,
+    });
   } catch (error) {
-    console.error("İlan kaydedilirken hata:", error.message);
+    console.error("Hata Detayı:", error.message);
     res.status(500).json({ error: "Bir hata oluştu. İlan kaydedilemedi." });
   }
 });

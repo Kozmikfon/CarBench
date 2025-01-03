@@ -142,7 +142,7 @@
             rows="3"
             required
           ></textarea>
-          <button class="send-btn" id="send-btn">Gönder</button>
+          <button onclick="checkAuthBeforeMessaging()">Mesaj Gönder</button>
         </div>
 
         <a href="javascript:history.back()" class="btn-back">Geri Dön</a>
@@ -200,6 +200,16 @@
         // Mesaj kutusunu aşağıya kaydır
         messageBox.scrollTop = messageBox.scrollHeight;
       }
+      function checkAuthBeforeMessaging() {
+        const token = localStorage.getItem("userToken");
+        if (!token) {
+          alert("Mesaj göndermek için giriş yapmanız gerekiyor.");
+          window.location.href = "login.html"; // Giriş sayfasına yönlendirme
+        } else {
+          alert("Mesaj gönderme işlemi başlatılıyor...");
+          // Mesaj gönderme kodları buraya eklenecek
+        }
+      }
 
       // Mesaj gönderme fonksiyonu
       sendButton.addEventListener("click", () => {
@@ -217,6 +227,13 @@
           carMessages[selectedCarId].push(newMessage);
           messageInput.value = ""; // Mesaj kutusunu temizle
           displayMessages(selectedCarId); // Mesajları tekrar göster
+        }
+      });
+      document.addEventListener("DOMContentLoaded", () => {
+        const token = localStorage.getItem("userToken");
+        if (!token) {
+          alert("Bu sayfaya erişmek için giriş yapmanız gerekiyor.");
+          window.location.href = "login.html";
         }
       });
 

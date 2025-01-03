@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+// PendingCar Schema
 const pendingCarSchema = new mongoose.Schema({
   urunAdi: { type: String, required: true },
   marka: { type: String, required: true },
@@ -15,6 +16,43 @@ const pendingCarSchema = new mongoose.Schema({
   kasaTipi: { type: String },
   aciklama: { type: String },
   resimURL: { type: String },
+  hasarBilgisi: { type: String },
+  saticiBilgileri: { type: String },
+  ilanNo: { type: String },
+  ilanTarihi: { type: String },
+  cekis: { type: String },
+  aracDurumu: { type: String },
+  ortYakitTuketimi: { type: String },
+  yakitDeposu: { type: String },
+  boyaDegisen: { type: String },
+  takasaUygun: { type: String },
+  kimden: { type: String },
+  uretimYili: { type: String },
+  garantiDurumu: { type: String },
+  aracTuru: { type: String },
+  ilkSahip: { type: String },
+  sinifi: { type: String },
+  plakaUyruğu: { type: String },
+  sanziman: { type: String },
+  ortalamaKasko: { type: String },
+  ortalamaTrafikSigortasi: { type: String },
+  silindirSayisi: { type: String },
+  tork: { type: String },
+  hizlanma: { type: String },
+  maksimumHiz: { type: String },
+  sehirIciTuketim: { type: String },
+  sehirDisiTuketim: { type: String },
+  uzunluk: { type: String },
+  genislik: { type: String },
+  yukseklik: { type: String },
+  agirlik: { type: String },
+  bosAgirlik: { type: String },
+  koltukSayisi: { type: String },
+  bagajHacmi: { type: String },
+  onLastik: { type: String },
+  aksAraligi: { type: String },
+  adres: { type: String },
 });
 
+// PendingCar Model
 module.exports = mongoose.model("PendingCar", pendingCarSchema, "pending_listings");

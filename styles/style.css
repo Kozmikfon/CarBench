@@ -25,6 +25,61 @@ html {
   scroll-behavior: smooth;
   overflow-x: hidden;
 }
+.latest-vehicles {
+  padding: 2rem;
+  background: #f9f9f9;
+}
+
+.latest-vehicles .container {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.latest-vehicles .post {
+  flex: 1 1 calc(33% - 1rem);
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.latest-vehicles .post:hover {
+  transform: scale(1.05);
+}
+
+.latest-vehicles img {
+  width: 100%;
+  height: auto;
+}
+
+.latest-vehicles h3 {
+  padding: 1rem;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.latest-vehicles p {
+  padding: 0 1rem 1rem;
+  color: #666;
+}
+
+.latest-vehicles .btn {
+  display: block;
+  margin: 0 1rem 1rem;
+  padding: 0.5rem;
+  text-align: center;
+  background: #007bff;
+  color: #fff;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.latest-vehicles .btn:hover {
+  background: #0056b3;
+}
 
 html::-webkit-scrollbar {
   width: 0.8rem;
@@ -67,7 +122,6 @@ a {
 
 .btn:hover {
   opacity: 0.9;
-  
 }
 
 .heading {
@@ -82,14 +136,14 @@ a {
   color: var(--black-color);
   text-transform: uppercase;
 }
- .listbutton{
+.listbutton {
   background: 150px;
   height: 150px;
   width: 200px;
-  top:100%;
-  left:100%;
+  top: 100%;
+  left: 100%;
   transition: all 0.7s;
- }
+}
 .search-input {
   font-size: 1.6rem;
   color: var(--black-color);
@@ -271,7 +325,7 @@ a {
   background-color: #fff;
   border-radius: 3rem;
   background-color: #fff;
-  min-height: 60rem;
+  min-height: 75rem;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -286,11 +340,10 @@ a {
 .menu .box-container .box .menu-category {
   font-size: 1.2rem;
   text-transform: lowercase;
-  
 }
 
 .menu .box-container .box h3 {
-  font-size: 3rem;
+  font-size: 5rem;
   padding: 1rem 0;
 }
 
@@ -304,7 +357,6 @@ a {
   text-decoration: line-through;
   font-weight: 300;
 }
-
 
 /*! menu end  */
 
@@ -588,9 +640,9 @@ a {
 }
 
 .blogs .box-container .box .content p {
-  font-size: 1.6rem;
+  font-size: 1.7rem;
   line-height: 1.8;
-  color: #ccc;
+  color: #1a1919;
   padding: 1rem 0;
 }
 /*! blog end  */
@@ -678,7 +730,7 @@ a {
   }
 
   .header {
-    padding: 1.5rem 2rem;
+    padding: 0.5rem 2rem;
   }
 
   .header .logo img {
@@ -689,19 +741,40 @@ a {
     padding: 2rem;
   }
 
- .products .box-container .box .box-head .name {
-  font-size: 3.4rem; /* Burada özel boyutu ayarlayabilirsiniz */
+  .products .box-container .box .box-head .name {
+    font-size: 3.4rem; /* Burada özel boyutu ayarlayabilirsiniz */
+  }
+  .products .box-container .box .box-head img {
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    max-height: 200px;
+    display: block;
+    margin: auto;
+  }
 }
-.products .box-container .box .box-head img {
-  width: auto;
-  max-width: 100%;
-  height: auto;
-  max-height: 200px;
-  display: block;
-  margin: auto;
+.custom-text {
+  font-weight: bold; /* Kalın metin */
+  color: #acbbc5; /* Mavi renk */
 }
 
+.imag img {
+  max-width: 90%; /* Görsel genişliğini ekrana sığdırır */
+  max-height: 350px; /* Maksimum yüksekliği belirler */
 
+  width: auto; /* Oranları korur */
+  height: auto; /* Oranları korur */
+  margin: 0 auto; /* Ortalamak için */
+  display: block; /* Ortalamak için */
+}
+.ima img {
+  max-width: 200%; /* Görsel genişliğini ekrana sığdırır */
+  max-height: 400px; /* Maksimum yüksekliği belirler */
+
+  width: auto; /* Oranları korur */
+  height: auto; /* Oranları korur */
+  margin: 0 auto; /* Ortalamak için */
+  display: block; /* Ortalamak için */
 }
 
 @media (max-width: 768px) {
@@ -749,13 +822,11 @@ body {
   opacity: 1; /* Sayfa başlangıçta görünür */
   transition: opacity 0.5s ease; /* Geçiş efekti */
 }
-
-
-
-
-
-
-
-
+.image-caption {
+  text-align: start; /* Yazıyı ortala */
+  font-size: 18px; /* Yazı boyutu */
+  color: #555; /* Yazı rengi */
+  margin-top: 8px; /* Resimle yazı arasına boşluk ekle */
+}
 
 /*! responsive end  */

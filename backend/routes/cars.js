@@ -2,7 +2,6 @@ const express = require("express");
 const Car = require("../models/Car");
 const router = express.Router();
 
-
 // Tüm araçları listeleme
 router.get("/", async (req, res) => {
   try {
@@ -14,38 +13,36 @@ router.get("/", async (req, res) => {
   }
 });
 
-
-
 // Filtreleme ile araç getir
 router.get("/filter", async (req, res) => {
-  const { marka, fiyatMin, fiyatMax, yil, yakitTipi, kasaTipi, sortBy, order } =
-    req.query;
+  const { marka, fiyatMin, fiyatMax, yil } = req.query;
 
   try {
     const query = {};
 
-    if (marka) query["marka"] = { $regex: new RegExp(marka, "i") };
-    if (kasaTipi) query["Kasa Tipi"] = { $regex: new RegExp(kasaTipi, "i") }; // Kasa tipi kontrolü
-    if (fiyatMin || fiyatMax) {
-      query["fiyat"] = {};
-      if (fiyatMin) query["fiyat"].$gte = parseInt(fiyatMin, 10);
-      if (fiyatMax) query["fiyat"].$lte = parseInt(fiyatMax, 10);
-    }
-    if (yil) query["yil"] = yil;
-    if (yakitTipi) query["yakitTipi"] = { $regex: new RegExp(yakitTipi, "i") };
+    // Marka filtresi
+    if (marka) query["Marka"] = { $regex: new RegExp(marka, "i") };
 
-    const sortField = sortBy || "fiyat";
-    const sortOrder = order === "desc" ? -1 : 1;
+    // Fiyat filtresi
+    if (fiyatMin) query["Fiyat"] = { $gte: fiyatMin };
+    if (fiyatMax) query["Fiyat"] = { $lte: fiyatMax };
 
-    const cars = await Car.find(query)
-      .sort({ [sortField]: sortOrder })
-      .lean();
+    // Yıl filtresi
+    if (yil) query["Yıl"] = yil;
+
+    const cars = await Car.find(query).lean();
+      // Resim URL'lerini normalize et
+      const normalizeURL = (url) => decodeURIComponent(url);
+
+      cars.forEach((car) => {
+        car["resimURL"] = normalizeURL(car["resimURL"] || "images/default-car.jpg");
+      });
+
+
     res.json({ total: cars.length, data: cars });
   } catch (error) {
     console.error("Filtreleme hatası:", error.message);
-    res
-      .status(500)
-      .json({ error: "Filtrelenmiş veri alınırken bir hata oluştu." });
+    res.status(500).json({ error: "Veriler alınırken bir hata oluştu." });
   }
 });
 
@@ -120,9 +117,6 @@ router.get("/hatchback", async (req, res) => {
   }
 });
 
-
-
-
 // Benzersiz markaları getir
 router.get("/marka", async (req, res) => {
   try {
@@ -133,7 +127,9 @@ router.get("/marka", async (req, res) => {
     res.json({ total: brands.length, data: brands });
   } catch (error) {
     console.error("Marka verileri alınırken hata oluştu:", error.message);
-    res.status(500).json({ error: "Marka verileri alınırken bir hata oluştu." });
+    res
+      .status(500)
+      .json({ error: "Marka verileri alınırken bir hata oluştu." });
   }
 });
 
@@ -151,7 +147,5 @@ router.get("/:id", async (req, res) => {
     res.status(500).json({ error: "Araç alınırken bir hata oluştu." });
   }
 });
-
-
 
 module.exports = router;

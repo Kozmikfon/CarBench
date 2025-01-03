@@ -1,44 +1,58 @@
 const express = require("express");
+const authenticateAdmin = require("../middlewares/authenticateAdmin");
 const PendingCar = require("../models/PendingCar");
 const Car = require("../models/Car");
 const router = express.Router();
 
-// Admin ilan onayı
-router.post("/approve/:id", async (req, res) => {
+// Tüm bekleyen ilanları listele
+// Bekleyen ilanları listele
+router.get("/pending", authenticateAdmin, async (req, res) => {
   try {
-    const carId = req.params.id;
+    const pendingCars = await PendingCar.find();
+    res.json({ total: pendingCars.length, data: pendingCars });
+  } catch (error) {
+    res.status(500).json({ error: "Bekleyen ilanlar alınırken bir hata oluştu." });
+  }
+});
 
-    // Bekleyen ilanı bul
-    const pendingCar = await PendingCar.findById(carId);
+// İlanı onayla
+// İlanı onayla
+router.post("/approve/:id", authenticateAdmin, async (req, res) => {
+  try {
+    const pendingCarId = req.params.id;
+    const pendingCar = await PendingCar.findById(pendingCarId);
     if (!pendingCar) {
-      return res.status(404).json({ message: "İlan bulunamadı." });
+      return res.status(404).json({ error: "İlan bulunamadı." });
     }
 
-    // Bekleyen ilanı car_listings'e kaydet
-    const newCar = new Car({
-      urunAdi: pendingCar.urunAdi,
-      marka: pendingCar.marka,
-      model: pendingCar.model,
-      fiyat: pendingCar.fiyat,
-      yil: pendingCar.yil,
-      kilometre: pendingCar.kilometre,
-      yakitTipi: pendingCar.yakitTipi,
-      vitesTipi: pendingCar.vitesTipi,
-      renk: pendingCar.renk,
-      motorHacmi: pendingCar.motorHacmi,
-      motorGucu: pendingCar.motorGucu,
-      kasaTipi: pendingCar.kasaTipi,
-      aciklama: pendingCar.aciklama,
-      resimURL: pendingCar.resimURL,
+    const approvedCar = new Car({
+      ...pendingCar.toObject(),
+      kaynak: "kullanici",
     });
+    await approvedCar.save();
+    await PendingCar.findByIdAndDelete(pendingCarId);
 
-    await newCar.save(); // `car_listings` koleksiyonuna ekle
-    await PendingCar.findByIdAndDelete(carId); // Bekleyen ilanı sil
-
-    res.status(200).json({ message: "İlan onaylandı ve car_listings'e eklendi.", data: newCar });
+    res.json({ message: "İlan başarıyla onaylandı.", data: approvedCar });
   } catch (error) {
-    console.error("İlan onaylanırken hata:", error.message);
-    res.status(500).json({ error: "İlan onaylanamadı. Bir hata oluştu." });
+    res.status(500).json({ error: "İlan onaylanırken bir hata oluştu." });
+  }
+});
+
+// İlanı reddet
+router.delete("/reject/:id", authenticateAdmin,async (req, res) => {
+  try {
+    const pendingCarId = req.params.id;
+
+    // Bekleyen ilanı sil
+    const deletedCar = await PendingCar.findByIdAndDelete(pendingCarId);
+    if (!deletedCar) {
+      return res.status(404).json({ error: "İlan bulunamadı." });
+    }
+
+    res.json({ message: "İlan başarıyla reddedildi." });
+  } catch (error) {
+    console.error("İlan reddedilirken hata:", error.message);
+    res.status(500).json({ error: "İlan reddedilirken bir hata oluştu." });
   }
 });
 

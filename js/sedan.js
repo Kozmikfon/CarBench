@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       carList.innerHTML = "<p>Veriler yükleniyor...</p>";
   
       try {
-        const response = await fetch("http://localhost:5019/api/cars/filter?kasaTipi=Sedan");
+        const response = await fetch("http://localhost:5024/api/cars/filter?kasaTipi=Sedan");
         const cars = await response.json();
   
         carList.innerHTML = ""; // Önceki içeriği temizle

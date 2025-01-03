@@ -79,7 +79,7 @@
         carList.innerHTML = "<p>Veriler yükleniyor...</p>";
 
         try {
-          const response = await fetch("http://localhost:5019/api/cars/filter?yil=2024");
+          const response = await fetch("http://localhost:5024/api/cars/filter?yil=2024");
           const cars = await response.json();
 
           carList.innerHTML = ""; // Önceki içeriği temizle

@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     try {
       // API'den veri çekme ("/filter?kasaTipi=Hatchback" doğru URL)
-      const response = await fetch("http://localhost:5019/api/cars/filter?kasaTipi=Hatchback");
+      const response = await fetch("http://localhost:5024/api/cars/filter?kasaTipi=Hatchback");
       const cars = await response.json(); // JSON verisini al
 
       carList.innerHTML = ""; // Önceki içeriği temizle

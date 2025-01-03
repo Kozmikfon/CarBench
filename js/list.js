@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     try {
       carList.innerHTML = "<p>Yükleniyor...</p>"; // Yükleniyor mesajını göster
 
-      const response = await fetch("http://localhost:5019/api/cars");
+      const response = await fetch("http://localhost:5024/api/cars");
       const cars = await response.json();
 
       carList.innerHTML = ""; // Önceki içeriği temizle
