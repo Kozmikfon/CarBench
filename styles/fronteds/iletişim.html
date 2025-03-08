@@ -11,24 +11,26 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <title>Markalar</title>
+    <title>İletişim</title>
     <link rel="stylesheet" href="styles/style.css" />
   </head>
   <body>
     <!--! header section start  -->
     <header class="header">
       <a href="#" class="logo">
-        <img src="images/indir.jpeg" alt="logo" />
+        <img src="../../images/indir.jpeg" alt="logo" />
       </a>
       <nav class="navbar">
-        <a href="index.html">Anasayfa</a>
-        <a href="hakkında.html">Hakkında</a>
-        <a href="marka.html" class="active">Markalar</a>
-        <a href="iletişim.html">İletişim</a>
+        <a href="../fronteds/index.html">Anasayfa</a>
+        <a href="../fronteds/hakkında.html">Hakkında</a>
+        <a href="../fronteds/blogs.html">Blogs</a>
+        <a href="../fronteds/iletişim.html" class="active">İletişim</a>
         <span id="user-info"></span>
+        
       </nav>
 
       <div class="buttons">
+        
         <button id="menu-btn">
           <i class="fas fa-bars"></i>
         </button>
@@ -47,7 +49,7 @@
       <div class="cart-items-container">
         <div class="cart-item">
           <i class="fas fa-times"></i>
-          <img src="images/alfa.png" alt="menu" />
+          <img src="../../images/menu-1.png" alt="menu" />
           <div class="content">
             <h3>cart item 01</h3>
             <div class="price">$15.99/-</div>
@@ -55,7 +57,7 @@
         </div>
         <div class="cart-item">
           <i class="fas fa-times"></i>
-          <img src="images/menu-2.png" alt="menu" />
+          <img src="../../images/menu-2.png" alt="menu" />
           <div class="content">
             <h3>cart item 02</h3>
             <div class="price">$15.99/-</div>
@@ -63,7 +65,7 @@
         </div>
         <div class="cart-item">
           <i class="fas fa-times"></i>
-          <img src="images/menu-3.png" alt="menu" />
+          <img src="../../images/menu-3.png" alt="menu" />
           <div class="content">
             <h3>cart item 03</h3>
             <div class="price">$15.99/-</div>
@@ -71,7 +73,7 @@
         </div>
         <div class="cart-item">
           <i class="fas fa-times"></i>
-          <img src="images/menu-4.png" alt="menu" />
+          <img src="../../images/menu-4.png" alt="menu" />
           <div class="content">
             <h3>cart item 04</h3>
             <div class="price">$15.99/-</div>
@@ -82,64 +84,79 @@
     </header>
     <!--! header section end  -->
 
-    <!--! menu section start  -->
-    <section class="menu" id="menu">
-      <h1 class="heading"><span>Araçlar</span></h1>
-      <div class="box-container">
-        <!-- SUV -->
-        <div class="box">
-          <div class="box-head">
-            <img src="images/alfa.png" alt="SUV" />
-            <span class="menu-category">SUV</span>
-            <h3>SUV</h3>
-            <div class="price"><span></span></div>
+    <!--! contact section start  -->
+    <section class="contact" id="contact">
+      <h1 class="heading"><span>İLETİŞİM</span></h1>
+      <div class="row">
+        <iframe
+          class="map"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3067.523354158944!2d37.01250527579261!3d39.75035647155447!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x407eab2133a4aed3%3A0x82b032fb218639fc!2sSivas%20Cumhuriyet%20Meydan%C4%B1!5e0!3m2!1str!2str!4v1733990577795!5m2!1str!2str"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+        <form id="contactForm">
+          <h3>BİZİMLE İLETİŞİME GEÇİN</h3>
+          <div class="inputBox">
+            <i class="fas fa-user"></i>
+            <input type="text" id="name" placeholder="İsim" required />
           </div>
-          <div class="box-bottom"></div>
-        </div>
-
-        <!-- Sedan -->
-        <div class="box">
-          <div class="box-head">
-            <img src="images/sedan.png" alt="Sedan" />
-            <span class="menu-category">Sedan</span>
-            <h3>Sedan</h3>
-            <div class="price"><span></span></div>
+          <div class="inputBox">
+            <i class="fas fa-envelope"></i>
+            <input type="email" id="email" placeholder="Email" required />
           </div>
-          <div class="box-bottom"></div>
-        </div>
-
-        <!-- Hatchback -->
-        <div class="box">
-          <div class="box-head">
-            <img src="images/hatchback.jpeg" alt="Hatchback" />
-            <span class="menu-category">Hatchback</span>
-            <h3>Hatchback</h3>
-            <div class="price"><span></span></div>
+          <div class="inputBox">
+            <i class="fas fa-phone"></i>
+            <input
+              type="number"
+              id="phone"
+              placeholder="Telefon Numarası"
+              maxlength="11"
+              required
+            />
           </div>
-          <div class="box-bottom"></div>
-        </div>
-
-        <!-- Cabrio -->
-        <div class="box">
-          <div class="box-head">
-            <img src="images/cabrio.png" alt="Cabrio" />
-            <span class="menu-category">Cabrio</span>
-            <h3>Cabrio</h3>
-            <div class="price"><span></span></div>
-          </div>
-          <div class="box-bottom"></div>
-        </div>
+          <input type="submit" class="btn" value="İLETİŞİME GEÇ" />
+        </form>
       </div>
-          
     </section>
-    <!--! menu section end  -->
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const contactForm = document.getElementById("contactForm");
+        contactForm.addEventListener("submit", function (e) {
+          e.preventDefault(); // Formun varsayılan gönderim işlemini engelle
+    
+          const name = document.getElementById("name").value;
+          const phone = document.getElementById("phone").value;
+    
+          // Telefon numarasının uzunluğunu kontrol et
+          if (phone.length < 11) {
+            Swal.fire({
+              title: "Hata!",
+              text: "Telefon numarası eksik, lütfen 11 haneli telefon numaranızı giriniz.",
+              icon: "error",
+              confirmButtonText: "Tamam",
+            });
+            return; // İşleme devam etmeyi durdur
+          }
+    
+          // SweetAlert2 ile başarılı bildirim
+          Swal.fire({
+            title: "Başarılı!",
+            text: `Talebinizi aldık, ${name}. Sizinle en kısa sürede iletişime geçilecektir.`,
+            icon: "success",
+            confirmButtonText: "Tamam",
+          });
+        });
+      });
+    </script>
+    
+    <!--! contact section end  -->
 
     <!--! footer section start  -->
     <section class="footer">
-      <div class="search">
-        <input type="text" class="search-input" placeholder="Search" />
-        <button class="btn btn-primary">search</button>
-      </div>
+  
       <div class="share">
         <!-- Sosyal medya bağlantıları -->
         <a
@@ -175,65 +192,23 @@
       </div>
 
       <div class="credit">
-        <span>Car Bench</span>
+         <span>Car Bench</span> 
       </div>
     </section>
     <!--! footer section end  -->
-    <script>
-      document.addEventListener("DOMContentLoaded", async function () {
-        const brandListContainer = document.querySelector(".box-container");
-
-        async function fetchBrands() {
-          try {
-            const response = await fetch(
-              "http://localhost:5024/api/cars/marka"
-            );
-            const data = await response.json();
-
-            brandListContainer.innerHTML = "";
-
-            if (!data.data || data.data.length === 0) {
-              brandListContainer.innerHTML = "<p>Hiç marka bulunamadı.</p>";
-              return;
-            }
-
-            data.data.forEach((brand) => {
-              const brandCard = `
-                <div class="box">
-                  <div class="box-head">
-                    <img src="images/alfa.png" alt="${brand}" />
-                    <span class="menu-category">${brand}</span>
-                    <h3>${brand}</h3>
-                  </div>
-                  <div class="box-bottom">
-                    
-                  </div>
-                </div>`;
-              brandListContainer.innerHTML += brandCard;
-            });
-          } catch (error) {
-            console.error("Marka verileri alınırken hata oluştu:", error);
-            brandListContainer.innerHTML =
-              "<p>Veri alınırken bir sorun oluştu. Lütfen tekrar deneyin.</p>";
-          }
-        }
-
-        fetchBrands();
-      });
-    </script>
 
     <script src="js/script.js"></script>
     <style>
       #user-info {
-        position: fixed;
+        position: absolute;
         top: 10px;
         right: 10px;
         background: #e06666;
         padding: 10px;
         border-radius: 20px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        margin-right: 10%;
-        margin-top:2% ;
+        margin-right: 5%;
+        margin-top:1% ;
         font-weight: bold;
       }
 
@@ -331,6 +306,7 @@
         }
       });
     </script>
-    
-  </body>
+
+
+  </body>
 </html>

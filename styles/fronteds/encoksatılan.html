@@ -122,7 +122,7 @@
               .map(
                 (car) => `
             <div class="car-card">
-              <img src="images/default-car.jpg" class="car-image" alt="${
+              <img src="../../images/default-car.jpg" class="../../images/car-image" alt="${
                 car.Model || "Araç"
               }">
               <div class="car-info">
@@ -133,7 +133,7 @@
                   Fiyat: ${car.Fiyat || "Bilinmiyor"} TL<br>
                   Satış Adedi: ${car.salesCount || "Bilinmiyor"}
                 </p>
-                <a href="detay.html?id=${
+                <a href="../frontends/detay.html?id=${
                   car._id
                 }" class="btn-details">Detayları Gör</a>
               </div>
